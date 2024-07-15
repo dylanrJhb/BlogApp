@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--iOS Blog App-->
         <scene sceneID="PEF-HR-lSg">
             <objects>
                 <viewController id="lb3-Cg-2uC" customClass="MainViewController" customModule="BlogApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -20,13 +20,14 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zVC-yM-8F3">
                                 <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS Coding challenge" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gGO-lb-kMm">
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="AgC-lH-uon">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="lb3-Cg-2uC" id="6gN-B1-Jnl"/>
+                                    </connections>
+                                </searchBar>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vG6-xt-XsE"/>
@@ -38,8 +39,9 @@
                             <constraint firstItem="vG6-xt-XsE" firstAttribute="trailing" secondItem="zVC-yM-8F3" secondAttribute="trailing" id="iyh-ZN-Q7Z"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="kRN-XH-sIO"/>
+                    <navigationItem key="navigationItem" title="iOS Blog App" id="kRN-XH-sIO"/>
                     <connections>
+                        <outlet property="searchBar" destination="zVC-yM-8F3" id="EKa-ZJ-kIf"/>
                         <outlet property="tableView" destination="zVC-yM-8F3" id="qd0-vT-BZ8"/>
                         <segue destination="khA-FY-Eot" kind="show" identifier="showDetails" id="IRa-tt-Ov1"/>
                     </connections>
@@ -57,11 +59,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-gd-rLd">
-                                <rect key="frame" x="16" y="174.66666666666663" width="361" height="189"/>
+                                <rect key="frame" x="16" y="154.66666666666666" width="361" height="199.99999999999997"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="189" id="j5K-Aw-GbF"/>
-                                </constraints>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -75,7 +74,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oUL-zA-pYY">
-                                <rect key="frame" x="16" y="371.33333333333331" width="49" height="32"/>
+                                <rect key="frame" x="16" y="362.33333333333331" width="49" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="bgq-bB-eS3"/>
                                 </constraints>
@@ -91,10 +90,10 @@
                         <viewLayoutGuide key="safeArea" id="opx-RZ-u5a"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="uLX-gd-rLd" firstAttribute="top" secondItem="32d-Gs-ZZe" secondAttribute="bottom" constant="30" id="6ea-nI-cSP"/>
                             <constraint firstItem="oUL-zA-pYY" firstAttribute="top" secondItem="uLX-gd-rLd" secondAttribute="bottom" constant="7.5" id="Dte-Qt-Q0s"/>
                             <constraint firstItem="oUL-zA-pYY" firstAttribute="leading" secondItem="uLX-gd-rLd" secondAttribute="leading" id="Lm8-GN-5GH"/>
                             <constraint firstItem="32d-Gs-ZZe" firstAttribute="trailing" secondItem="bnp-oO-EKC" secondAttribute="trailingMargin" id="TMC-Tq-73j"/>
+                            <constraint firstItem="uLX-gd-rLd" firstAttribute="top" secondItem="32d-Gs-ZZe" secondAttribute="bottom" constant="10" id="iXb-mg-6NR"/>
                             <constraint firstItem="32d-Gs-ZZe" firstAttribute="top" secondItem="bnp-oO-EKC" secondAttribute="topMargin" id="jeR-dM-TIG"/>
                             <constraint firstItem="opx-RZ-u5a" firstAttribute="trailing" secondItem="oUL-zA-pYY" secondAttribute="trailing" constant="328" id="pVx-5u-mNd"/>
                             <constraint firstItem="uLX-gd-rLd" firstAttribute="leading" secondItem="32d-Gs-ZZe" secondAttribute="leading" id="q7c-lM-xXU"/>

@@ -8,15 +8,16 @@
 import Foundation
 import UIKit
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var searchBar: UITableView!
     
     var blogs = [BlogModel]()
+    var filteredData: [BlogModel]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         downloadJSON {
             self.tableView.reloadData()
@@ -25,19 +26,40 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        searchBar.delegate = self
+        
+        filteredData = blogs
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return blogs.count
+        return filteredData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        let hero = blogs[indexPath.row]
-        cell.textLabel?.text = hero.title.capitalized
-        cell.detailTextLabel?.text = hero.body.capitalized
-        
+        let blogTable = filteredData[indexPath.row]
+        cell.textLabel?.text = blogTable.title.capitalized
+        cell.detailTextLabel?.text = blogTable.body.capitalized
+
         return cell
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredData = []
+        
+        if searchText == "" {
+            filteredData = blogs
+        }
+        else {
+            for blog in blogs {
+                if blog.title.lowercased().contains(searchText.lowercased()) {
+                    filteredData.append(blog)
+                }
+            }
+        }
+        
+        self.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -46,16 +68,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? BlogViewController {
-            destination.blog = blogs[tableView.indexPathForSelectedRow!.row]
+            destination.blog = filteredData[tableView.indexPathForSelectedRow!.row]
         }
     }
         
     func downloadJSON(completed: @escaping () -> ()) {
         let url = URL(string: "https://jsonplaceholder.typicode.com/posts")
         
-        URLSession.shared.dataTask(with: url!) { data, response, err in
+        URLSession.shared.dataTask(with: url!) { data, response, error in
             
-            if err == nil {
+            if error == nil {
                 do {
                     self.blogs = try JSONDecoder().decode([BlogModel].self, from: data!)
                     DispatchQueue.main.async {

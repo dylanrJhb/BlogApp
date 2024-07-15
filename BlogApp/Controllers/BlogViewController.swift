@@ -36,8 +36,8 @@ class BlogViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? CommentViewController {
-            self.navigationController?.pushViewController(destination, animated: true)
+        if let destinationScreen = segue.destination as? CommentViewController {
+            self.navigationController?.popViewController(animated: false)
         }
     }
 }
