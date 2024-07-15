@@ -16,6 +16,14 @@
 		CE1C28322C45522E0004FB2C /* BlogAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C28312C45522E0004FB2C /* BlogAppTests.swift */; };
 		CE1C283C2C45522E0004FB2C /* BlogAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C283B2C45522E0004FB2C /* BlogAppUITests.swift */; };
 		CE1C283E2C45522E0004FB2C /* BlogAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C283D2C45522E0004FB2C /* BlogAppUITestsLaunchTests.swift */; };
+		CE1C28522C455C9A0004FB2C /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C28512C455C9A0004FB2C /* CommentViewController.swift */; };
+		CE1C28542C455CB20004FB2C /* BlogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C28532C455CB20004FB2C /* BlogViewController.swift */; };
+		CE1C28562C455CC10004FB2C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C28552C455CC10004FB2C /* MainViewController.swift */; };
+		CE1C28582C455CE10004FB2C /* BlogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C28572C455CE10004FB2C /* BlogModel.swift */; };
+		CE1C285A2C455CF50004FB2C /* CommentsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C28592C455CF50004FB2C /* CommentsModel.swift */; };
+		CE1C285C2C4560B50004FB2C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C285B2C4560B50004FB2C /* MainViewModel.swift */; };
+		CE1C285E2C4561D00004FB2C /* BlogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C285D2C4561D00004FB2C /* BlogViewModel.swift */; };
+		CE1C28602C4561DD0004FB2C /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C285F2C4561DD0004FB2C /* CommentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +57,14 @@
 		CE1C28372C45522E0004FB2C /* BlogAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlogAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1C283B2C45522E0004FB2C /* BlogAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogAppUITests.swift; sourceTree = "<group>"; };
 		CE1C283D2C45522E0004FB2C /* BlogAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CE1C28512C455C9A0004FB2C /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		CE1C28532C455CB20004FB2C /* BlogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogViewController.swift; sourceTree = "<group>"; };
+		CE1C28552C455CC10004FB2C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		CE1C28572C455CE10004FB2C /* BlogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogModel.swift; sourceTree = "<group>"; };
+		CE1C28592C455CF50004FB2C /* CommentsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsModel.swift; sourceTree = "<group>"; };
+		CE1C285B2C4560B50004FB2C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		CE1C285D2C4561D00004FB2C /* BlogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogViewModel.swift; sourceTree = "<group>"; };
+		CE1C285F2C4561DD0004FB2C /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +115,15 @@
 		CE1C28192C4552290004FB2C /* BlogApp */ = {
 			isa = PBXGroup;
 			children = (
+				CE1C28502C4554680004FB2C /* Utils */,
+				CE1C284F2C45545F0004FB2C /* Services */,
+				CE1C284D2C4554430004FB2C /* Models */,
+				CE1C284C2C4554360004FB2C /* View Models */,
+				CE1C284B2C45542D0004FB2C /* Controllers */,
+				CE1C284A2C4554260004FB2C /* Views */,
 				CE1C281A2C4552290004FB2C /* AppDelegate.swift */,
 				CE1C281C2C4552290004FB2C /* SceneDelegate.swift */,
 				CE1C281E2C4552290004FB2C /* ViewController.swift */,
-				CE1C28202C4552290004FB2C /* Main.storyboard */,
 				CE1C28232C45522C0004FB2C /* Assets.xcassets */,
 				CE1C28252C45522C0004FB2C /* LaunchScreen.storyboard */,
 				CE1C28282C45522C0004FB2C /* Info.plist */,
@@ -125,6 +146,57 @@
 				CE1C283D2C45522E0004FB2C /* BlogAppUITestsLaunchTests.swift */,
 			);
 			path = BlogAppUITests;
+			sourceTree = "<group>";
+		};
+		CE1C284A2C4554260004FB2C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C28202C4552290004FB2C /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CE1C284B2C45542D0004FB2C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C28552C455CC10004FB2C /* MainViewController.swift */,
+				CE1C28532C455CB20004FB2C /* BlogViewController.swift */,
+				CE1C28512C455C9A0004FB2C /* CommentViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CE1C284C2C4554360004FB2C /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C285B2C4560B50004FB2C /* MainViewModel.swift */,
+				CE1C285D2C4561D00004FB2C /* BlogViewModel.swift */,
+				CE1C285F2C4561DD0004FB2C /* CommentViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
+		CE1C284D2C4554430004FB2C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE1C28572C455CE10004FB2C /* BlogModel.swift */,
+				CE1C28592C455CF50004FB2C /* CommentsModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CE1C284F2C45545F0004FB2C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CE1C28502C4554680004FB2C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,9 +330,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE1C28522C455C9A0004FB2C /* CommentViewController.swift in Sources */,
+				CE1C28542C455CB20004FB2C /* BlogViewController.swift in Sources */,
+				CE1C285E2C4561D00004FB2C /* BlogViewModel.swift in Sources */,
+				CE1C28582C455CE10004FB2C /* BlogModel.swift in Sources */,
 				CE1C281F2C4552290004FB2C /* ViewController.swift in Sources */,
+				CE1C28602C4561DD0004FB2C /* CommentViewModel.swift in Sources */,
+				CE1C28562C455CC10004FB2C /* MainViewController.swift in Sources */,
+				CE1C285A2C455CF50004FB2C /* CommentsModel.swift in Sources */,
 				CE1C281B2C4552290004FB2C /* AppDelegate.swift in Sources */,
 				CE1C281D2C4552290004FB2C /* SceneDelegate.swift in Sources */,
+				CE1C285C2C4560B50004FB2C /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

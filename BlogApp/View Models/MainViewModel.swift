@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+class MainViewModel {
+    private(set) var blogs: [BlogModel] = []
+    
+    
+}

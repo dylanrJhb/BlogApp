@@ -1,24 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4n1-qv-f6l">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Main View Controller-->
+        <scene sceneID="PEF-HR-lSg">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController id="lb3-Cg-2uC" customClass="MainViewController" customModule="BlogApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MNG-Ot-Eau">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zVC-yM-8F3">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS Coding challenge" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gGO-lb-kMm">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vG6-xt-XsE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zVC-yM-8F3" firstAttribute="top" secondItem="vG6-xt-XsE" secondAttribute="top" id="3aD-0U-VuQ"/>
+                            <constraint firstItem="zVC-yM-8F3" firstAttribute="leading" secondItem="vG6-xt-XsE" secondAttribute="leading" id="Zii-gJ-vrf"/>
+                            <constraint firstItem="vG6-xt-XsE" firstAttribute="bottom" secondItem="zVC-yM-8F3" secondAttribute="bottom" id="fiz-gr-vnK"/>
+                            <constraint firstItem="vG6-xt-XsE" firstAttribute="trailing" secondItem="zVC-yM-8F3" secondAttribute="trailing" id="iyh-ZN-Q7Z"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="kRN-XH-sIO"/>
+                    <connections>
+                        <outlet property="tableView" destination="zVC-yM-8F3" id="qd0-vT-BZ8"/>
+                        <segue destination="khA-FY-Eot" kind="show" identifier="showDetails" id="IRa-tt-Ov1"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gvd-cq-Tv2" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
+        </scene>
+        <!--Blog View Controller-->
+        <scene sceneID="8nd-De-q4E">
+            <objects>
+                <viewController id="khA-FY-Eot" customClass="BlogViewController" customModule="BlogApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bnp-oO-EKC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-gd-rLd">
+                                <rect key="frame" x="16" y="174.66666666666663" width="361" height="189"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="189" id="j5K-Aw-GbF"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" text="Placeholder text " selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32d-Gs-ZZe">
+                                <rect key="frame" x="16" y="103" width="361" height="41.666666666666657"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oUL-zA-pYY">
+                                <rect key="frame" x="16" y="371.33333333333331" width="49" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="bgq-bB-eS3"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="" imagePadding="-1">
+                                    <imageReference key="image" image="bubble" catalog="system" symbolScale="large" variableValue="0.0"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="jyK-Cq-5kq" kind="show" identifier="commentView" id="A4V-1b-HP0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="opx-RZ-u5a"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uLX-gd-rLd" firstAttribute="top" secondItem="32d-Gs-ZZe" secondAttribute="bottom" constant="30" id="6ea-nI-cSP"/>
+                            <constraint firstItem="oUL-zA-pYY" firstAttribute="top" secondItem="uLX-gd-rLd" secondAttribute="bottom" constant="7.5" id="Dte-Qt-Q0s"/>
+                            <constraint firstItem="oUL-zA-pYY" firstAttribute="leading" secondItem="uLX-gd-rLd" secondAttribute="leading" id="Lm8-GN-5GH"/>
+                            <constraint firstItem="32d-Gs-ZZe" firstAttribute="trailing" secondItem="bnp-oO-EKC" secondAttribute="trailingMargin" id="TMC-Tq-73j"/>
+                            <constraint firstItem="32d-Gs-ZZe" firstAttribute="top" secondItem="bnp-oO-EKC" secondAttribute="topMargin" id="jeR-dM-TIG"/>
+                            <constraint firstItem="opx-RZ-u5a" firstAttribute="trailing" secondItem="oUL-zA-pYY" secondAttribute="trailing" constant="328" id="pVx-5u-mNd"/>
+                            <constraint firstItem="uLX-gd-rLd" firstAttribute="leading" secondItem="32d-Gs-ZZe" secondAttribute="leading" id="q7c-lM-xXU"/>
+                            <constraint firstItem="32d-Gs-ZZe" firstAttribute="leading" secondItem="bnp-oO-EKC" secondAttribute="leadingMargin" id="snK-ef-eHO"/>
+                            <constraint firstItem="uLX-gd-rLd" firstAttribute="trailing" secondItem="32d-Gs-ZZe" secondAttribute="trailing" id="wzB-J8-uHe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="FdM-xy-5JG"/>
+                    <connections>
+                        <outlet property="bodyTextView" destination="uLX-gd-rLd" id="cC8-T9-KVX"/>
+                        <outlet property="commentButton" destination="oUL-zA-pYY" id="YGq-dr-Eyu"/>
+                        <outlet property="headerTextView" destination="32d-Gs-ZZe" id="wCr-wY-onv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dEt-vW-pAx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1922" y="153"/>
+        </scene>
+        <!--Comment View Controller-->
+        <scene sceneID="IfB-4u-nDK">
+            <objects>
+                <viewController id="jyK-Cq-5kq" customClass="CommentViewController" customModule="BlogApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Oz3-OX-jzd">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" text="Commenter Email" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVR-SC-npu" userLabel="Commenter email">
+                                <rect key="frame" x="20" y="175" width="374" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" text="Comment" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rep-NV-sOH" userLabel="Comment">
+                                <rect key="frame" x="20" y="244" width="374" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" text="Commenter name" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzu-u8-rna" userLabel="Commenter Name">
+                                <rect key="frame" x="20" y="124" width="374" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="oXb-KF-L4R"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="H3p-NH-LRD"/>
+                    <connections>
+                        <outlet property="commentTextView" destination="Rep-NV-sOH" id="jLU-GF-UmP"/>
+                        <outlet property="emailTextView" destination="hVR-SC-npu" id="eYy-wC-Xgn"/>
+                        <outlet property="nameTextView" destination="gzu-u8-rna" id="IYe-Cn-ddT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gIS-s6-qKz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2811.594202898551" y="152.67857142857142"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="WOL-qI-VVO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4n1-qv-f6l" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4lH-CO-2ho">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lb3-Cg-2uC" kind="relationship" relationship="rootViewController" id="Rb7-L7-iEP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mN1-qg-dJb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bubble" catalog="system" width="128" height="110"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

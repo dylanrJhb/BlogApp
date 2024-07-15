@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+class CommentViewModel {
+    private(set) var comments: [CommentsModel] = []
+    
+}
