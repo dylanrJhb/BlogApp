@@ -24,7 +24,6 @@ class BlogViewController: UIViewController {
 
         headerTextView.text = blog?.title
         bodyTextView.text = blog?.body
-        commentButton.tintColor = .systemGray
         
         headerTextView.sizeToFit()
         bodyTextView.sizeToFit()

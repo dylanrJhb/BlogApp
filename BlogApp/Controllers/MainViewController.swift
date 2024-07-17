@@ -15,6 +15,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var blogs = [BlogModel]()
     var filteredData: [BlogModel]!
+    var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         searchBar.delegate = self
         
         filteredData = blogs
+        
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh() {
+        downloadJSON {
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,7 +90,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             if error == nil {
                 do {
-                    self.blogs = try JSONDecoder().decode([BlogModel].self, from: data!)
+                    self.filteredData = try JSONDecoder().decode([BlogModel].self, from: data!)
                     DispatchQueue.main.async {
                         completed()
                     }
