@@ -17,16 +17,32 @@ class CommentViewModel {
     }
     
     //Strings
+    var commentPostId: Int {
+        var postId = comment.postId
+        postId = 1
+        return postId
+    }
+    
     var commentName: String {
-        return self.comment.name
+        
+        var commentName = comment.name
+        commentName = "This is a comment"
+        return commentName
+        //return self.comment.name
     }
     
     var commentEmail: String {
-        return self.comment.email
+        var commentEmail = comment.email
+        commentEmail = "This is a comment"
+        return commentEmail
+        //return self.comment.email
     }
     
     var commentBody: String {
-        return self.comment.body
+        var commentBody = comment.body
+        commentBody = "This is a comment"
+        return commentBody
+//        return self.comment.body
     }
     
 }

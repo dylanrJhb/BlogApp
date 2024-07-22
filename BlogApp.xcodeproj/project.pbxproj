@@ -115,8 +115,6 @@
 		CE1C28192C4552290004FB2C /* BlogApp */ = {
 			isa = PBXGroup;
 			children = (
-				CE1C28502C4554680004FB2C /* Utils */,
-				CE1C284F2C45545F0004FB2C /* Services */,
 				CE1C284D2C4554430004FB2C /* Models */,
 				CE1C284C2C4554360004FB2C /* View Models */,
 				CE1C284B2C45542D0004FB2C /* Controllers */,
@@ -183,20 +181,6 @@
 				CE1C28592C455CF50004FB2C /* CommentsModel.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		CE1C284F2C45545F0004FB2C /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		CE1C28502C4554680004FB2C /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

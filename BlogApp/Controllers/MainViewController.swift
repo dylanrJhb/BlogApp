@@ -22,12 +22,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         downloadJSON {
             self.tableView.reloadData()
-            print("Data successfully fetched from API")
+            print("Data successfully fetched from blog API")
         }
         
         tableView.delegate = self
         tableView.dataSource = self
-        
         searchBar.delegate = self
         
         filteredData = blogs
@@ -36,7 +35,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.addSubview(refreshControl)
     }
     
-    @objc func refresh() {
+    @objc func refresh(send: UIRefreshControl) {
         downloadJSON {
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
@@ -96,7 +95,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
                 catch {
-                    print("error fetching data from api")
+                    print("error fetching data from posts api")
                 }
             }
         }.resume()
