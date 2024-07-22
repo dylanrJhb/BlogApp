@@ -24,6 +24,7 @@
 		CE1C285C2C4560B50004FB2C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C285B2C4560B50004FB2C /* MainViewModel.swift */; };
 		CE1C285E2C4561D00004FB2C /* BlogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C285D2C4561D00004FB2C /* BlogViewModel.swift */; };
 		CE1C28602C4561DD0004FB2C /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C285F2C4561DD0004FB2C /* CommentViewModel.swift */; };
+		CEBEE6712C4E420900D5E5F1 /* CommentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBEE6702C4E420900D5E5F1 /* CommentDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		CE1C285B2C4560B50004FB2C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		CE1C285D2C4561D00004FB2C /* BlogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogViewModel.swift; sourceTree = "<group>"; };
 		CE1C285F2C4561DD0004FB2C /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		CEBEE6702C4E420900D5E5F1 /* CommentDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				CE1C28552C455CC10004FB2C /* MainViewController.swift */,
 				CE1C28532C455CB20004FB2C /* BlogViewController.swift */,
 				CE1C28512C455C9A0004FB2C /* CommentViewController.swift */,
+				CEBEE6702C4E420900D5E5F1 /* CommentDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				CE1C281F2C4552290004FB2C /* ViewController.swift in Sources */,
 				CE1C28602C4561DD0004FB2C /* CommentViewModel.swift in Sources */,
 				CE1C28562C455CC10004FB2C /* MainViewController.swift in Sources */,
+				CEBEE6712C4E420900D5E5F1 /* CommentDetailViewController.swift in Sources */,
 				CE1C285A2C455CF50004FB2C /* CommentsModel.swift in Sources */,
 				CE1C281B2C4552290004FB2C /* AppDelegate.swift in Sources */,
 				CE1C281D2C4552290004FB2C /* SceneDelegate.swift in Sources */,

@@ -8,25 +8,50 @@
 import Foundation
 import UIKit
 
-class CommentViewController: UIViewController {
+class CommentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet var nameTextView: UITextView!
-    @IBOutlet var emailTextView: UITextView!
-    @IBOutlet var commentTextView: UITextView!
+    @IBOutlet var commentTableView: UITableView!
     
     var comment = [CommentsModel]()
-    var linkComment: [CommentsModel]!
     var viewModel: CommentViewModel!
+    
+    var comments: CommentsModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
                    
             downloadJSON {
-                self.nameTextView.text = self.linkComment[1].name
-                self.emailTextView.text = self.linkComment[1].email
-                self.commentTextView.text = self.linkComment[1].body
+                self.commentTableView.reloadData()
                 print("Data successfully fetched from comments API")
             }
+        
+        commentTableView.delegate = self
+        commentTableView.dataSource = self
+        commentTableView.delegate = self
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return comment.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+        let commentTable = comment[indexPath.row]
+        cell.textLabel?.text = commentTable.name.capitalized
+        cell.textLabel?.text = commentTable.email.capitalized
+        cell.detailTextLabel?.text = commentTable.body.capitalized
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "CommentDetailView", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationScreen = segue.destination as? CommentDetailViewController {
+            destinationScreen.comment = comment[(commentTableView.indexPathForSelectedRow?.row)!]
+        }
     }
     
     func downloadJSON(completed: @escaping () -> ()) {
@@ -36,7 +61,7 @@ class CommentViewController: UIViewController {
             
             if error == nil {
                 do {
-                    self.linkComment = try JSONDecoder().decode([CommentsModel].self, from: data!)
+                    self.comment = try JSONDecoder().decode([CommentsModel].self, from: data!)
                     DispatchQueue.main.async {
                         completed()
                     }
