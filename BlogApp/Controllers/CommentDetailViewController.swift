@@ -19,8 +19,8 @@ class CommentDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        commentName.text = comment?.name
-        commentEmail.text = comment?.email
+        commentName.text = comment?.name.capitalized
+        commentEmail.text = comment?.email.capitalized
         commentBodyText.text = comment?.body
         
         commentName.sizeToFit()

@@ -12,31 +12,78 @@ class BlogViewController: UIViewController {
     
     @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var headerTextView: UITextView!
-    @IBOutlet var commentButton: UIButton!
+    @IBOutlet var commentTableView: UITableView!
     
     var blog: BlogModel?
+    var blogs = [BlogModel]()
+    var comment = [CommentsModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bodyTextView.isScrollEnabled = false
-        headerTextView.isScrollEnabled = false
+        ApiConnection.sharedInstance.fetchCommentsData(){ commentsApiData in
+            self.comment = commentsApiData
 
+           DispatchQueue.main.async {
+             self.commentTableView.reloadData()
+          }
+        }
+        
         headerTextView.text = blog?.title
         bodyTextView.text = blog?.body
         
-        headerTextView.sizeToFit()
-        bodyTextView.sizeToFit()
-
-    }
+//        downloadJSON {
+//            self.commentTableView.reloadData()
+//            print("Data successfully fetched from comments API")
+//        }
     
-    func commentButtonTapped() {
-        performSegue(withIdentifier: "commentView", sender: self)
+//    commentTableView.delegate = self
+//    commentTableView.dataSource = self
     }
-    
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationScreen = segue.destination as? CommentViewController {
-            self.navigationController?.popViewController(animated: false)
+        if let destinationScreen = segue.destination as? CommentDetailViewController {
+            destinationScreen.comment = comment[(commentTableView.indexPathForSelectedRow?.row)!]
         }
+    }
+    
+//    func downloadJSON(completed: @escaping () -> ()) {
+//        let url = URL(string: "https://jsonplaceholder.typicode.com/posts/\(blog?.id ?? 0)/comments")
+//        
+//        URLSession.shared.dataTask(with: url!) { data, response, error in
+//            
+//            if error == nil {
+//                do {
+//                    self.comment = try JSONDecoder().decode([CommentsModel].self, from: data!)
+//                    DispatchQueue.main.async {
+//                        completed()
+//                    }
+//                }
+//                catch {
+//                    print("error fetching data from comments api")
+//                }
+//            }
+//        }.resume()
+//    }
+}
+
+//Table View
+extension BlogViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return comment.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+        let commentTable = comment[indexPath.row]
+        cell.textLabel?.text = commentTable.name.capitalized
+        cell.detailTextLabel?.text = commentTable.body.capitalized
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "CommentDetailView", sender: self)
     }
 }
