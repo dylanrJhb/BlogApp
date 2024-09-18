@@ -8,11 +8,11 @@
 #!/bin/bash
 
 # Define the input and output directories
-INPUT_DIR="$PROJECT_DIR/BlogApp"
+INPUT_DIR="$PROJECT_DIR/View Models"
 OUTPUT_DIR="$PROJECT_DIR/BlogAppTests/Mocks"
 
 # Generate the mocks using Cuckoo
 cuckoo_generator generate --testable YourApp \
 --output "${OUTPUT_DIR}/Mocks.generated.swift" \
-"${INPUT_DIR}/View Models/BlogViewModel.swift" \
-"${INPUT_DIR}/View Models/MainViewModel.swift"
+"${INPUT_DIR}/BlogViewModel.swift" \
+"${INPUT_DIR}/MainViewModel.swift"

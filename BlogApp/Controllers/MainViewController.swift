@@ -7,124 +7,158 @@
 
 import Foundation
 import UIKit
-import NVActivityIndicatorView
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var searchBar: UISearchBar!
     
-    var blogs = [BlogModel]()
+    var blogs: [BlogModel] = []
     var filteredBlogs: [BlogModel] = []
+    
+    private lazy var viewModel = MainViewModel(view: self)
+    
+    let loadingIndicator = LoadingIndicator()
+    
     var refreshControl = UIRefreshControl()
-//    let searchController = UISearchController()
-    private let vm = MainViewModel()
-                   
+    private var searchController: UISearchController
+    
+    static func loadFromNib() -> MainViewController {
+        return MainViewController()
+    }
+       
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        vm.fetchBlogs()
-//        tableView.reloadData()    
-        activityIndicatorView()
-        
-        ApiConnection.sharedInstance.fetchAPIData{ apiData in
-            self.blogs = apiData
-
-           DispatchQueue.main.async {
-            self.tableView.reloadData()
-           }
-        }
+        loadingIndicator.showLoadingIndicator(view: self.view)
                 
-        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        tableView.addSubview(refreshControl)
-        searchBar.delegate = self
+        fetchBlogs()
+        configureTableView()
+        configureSearchController()
+        configureRefreshControl()
+    }
+                       
+    func fetchBlogs() {
+        viewModel.fetchBlogs{
+            self.loadingIndicator.hideLoadingIndicator()
+            
+            self.blogs = self.viewModel.blogs
+            self.filteredBlogs = self.viewModel.blogs
+            self.tableView.reloadData()
+        }
+    }
         
-//        filteredBlogs = blogs
+    public init() {
+        searchController = UISearchController(searchResultsController: nil)
+        
+        super.init(nibName: "MainViewController", bundle: nil)
     }
     
-   @objc func refresh(send: UIRefreshControl) {
-       ApiConnection.sharedInstance.fetchAPIData{ apiData in
-            self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
-        }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+        
 }
 
-//TableView
+//MARK: TableView
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func configureTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return blogs.count
+        return isFilteringBranches ? filteredBlogs.count : blogs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        let blogTable = blogs[indexPath.row]
-        cell.textLabel?.text = blogTable.title.capitalized
-        cell.detailTextLabel?.text = blogTable.body.capitalized
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let blog = isFilteringBranches ? filteredBlogs[indexPath.row] : blogs[indexPath.row]
+        cell.textLabel?.text = blog.title
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showDetails", sender: self)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {        
+        let selectedBlog = isFilteringBranches ? filteredBlogs[indexPath.row] : blogs[indexPath.row]
+        
+        let blogVC = BlogViewController(nibName: "BlogDetailsView", bundle: nil)
+        blogVC.title = "Blog Post"
+        blogVC.blogTitle = selectedBlog.title
+        blogVC.blogBody = selectedBlog.body
+        blogVC.blogId = selectedBlog.id
+        
+        navigationController?.pushViewController(blogVC, animated: true)
+    }
+}
+
+//MARK: Search Bar
+extension MainViewController: UISearchControllerDelegate, UISearchResultsUpdating {
+    
+    private func configureSearchController() {
+        tableView.tableHeaderView = searchController.searchBar
+        searchController.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.placeholder = "Search Blogs"
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? BlogViewController {
-            destination.blog = blogs[tableView.indexPathForSelectedRow!.row]
+    private var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    private var isFilteringBranches: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchText = searchController.searchBar.text ?? ""
+        
+        filterBlogs(searchText: searchText)
+    }
+    
+    private func filterBlogs(searchText: String) {
+        if searchText.isEmpty {
+            filteredBlogs = blogs
+        } else {
+            filteredBlogs = blogs.filter { blog in
+                return blog.title.lowercased().contains(searchText.lowercased()) || blog.body.lowercased().contains(searchText.lowercased())
+            }
+        }
+        tableView.reloadData()
+    }
+}
+
+//MARK: Refresh controller
+extension MainViewController {
+    
+    func configureRefreshControl() {
+        tableView.refreshControl = refreshControl
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        
+        refreshControl.addTarget(self, action: #selector(refreshBlogPosts(_:)), for: .valueChanged)//vm code
+    }
+    
+    @objc private func refreshBlogPosts(_ sender: Any) {
+        viewModel.fetchBlogs {
+            DispatchQueue.main.async {
+                self.blogs = self.viewModel.blogs
+                self.filteredBlogs = self.blogs
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
         }
     }
 }
 
-//Search Bar
-extension MainViewController: UISearchBarDelegate {
+//MARK: Protocol
+extension MainViewController: MainView {
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredBlogs = []
-           
-        if searchText.isEmpty{
-                    filteredBlogs = blogs
-                    print("searchText is empty")
-                }
-                else {
-                    print("searchText is not empty -- \(searchText)")
-//                    
-//                    filteredBlogs = blogs.filter { $0.title.lowercased().contains(searchText.lowercased())}
-//                    
-//                    print(filteredBlogs)
-                    
-                    for blog in blogs {
-                        if blog.title.lowercased().contains(searchText.lowercased()) {
-                            filteredBlogs.append(blog)
-                            print("Blog -- \(filteredBlogs)")
-                        }
-                    }
-                }
-        tableView.reloadData()
-        }
+    func configureTitle(with title: String) {
+        self.title = title
     }
-
-//Loading indicator
-extension MainViewController {
     
-    fileprivate func activityIndicatorView() {
-        let loading = NVActivityIndicatorView(frame: .zero, type: .ballClipRotatePulse, color: .blue, padding: 0)
-        loading.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(loading)
-        
-        NSLayoutConstraint.activate([
-            loading.widthAnchor.constraint(equalToConstant: 50),
-            loading.heightAnchor.constraint(equalToConstant: 50),
-            loading.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loading.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
-        
-        loading.startAnimating()
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            loading.stopAnimating()
-        }
+    func updateView() {
+        tableView.reloadData()
     }
 }

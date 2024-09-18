@@ -9,7 +9,45 @@ import Foundation
 
 class MainViewModel {
     
-    private(set) var blogs: [BlogModel] = []
+    private weak var view: MainView?
+    
+    var blogs = [BlogModel]()
+    var FilteredBlogs: [BlogModel] = []
+
+    init(view: MainView) {
+        self.view = view
+    }
+       
+//MARK: Call fetched data from API using Alamofire
+    func fetchBlogs(completion: @escaping () -> Void){
+        APIConnection.fetchBlogs { result in
+            switch result {
+            case .success(let blogsData):
+                self.blogs = blogsData
+                completion()
+                
+            case .failure(let error):
+                print("Error fetching blogs: \(error)")
+                self.blogs = []
+                completion()
+            }
+        }
+    }
+
+    func filterBlogs(with searchText: String) {
+        if searchText.isEmpty {
+            FilteredBlogs = blogs
+        } else {
+            FilteredBlogs = blogs.filter { blogs in
+                blogs.title.lowercased().contains(searchText.lowercased()) || blogs.body.lowercased().contains(searchText.lowercased())
+            }
+            view?.updateView()
+        }
+        view?.updateView()
+    }
+}
+
+struct MainModel {
     
     let blog: BlogModel
     
@@ -19,10 +57,11 @@ class MainViewModel {
     
     //Strings
     var blogEntryTitle: String {
-        return self.blog.title
+        blog.title
     }
     
     var blogEntryBody: String {
-        return self.blog.body
+        blog.body
     }
 }
+

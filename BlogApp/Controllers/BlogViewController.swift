@@ -10,80 +10,86 @@ import UIKit
 
 class BlogViewController: UIViewController {
     
-    @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var headerTextView: UITextView!
+    @IBOutlet var bodyTextView: UITextView!
     @IBOutlet var commentTableView: UITableView!
+       
+    private var viewModel: BlogViewModel?
     
-    var blog: BlogModel?
-    var blogs = [BlogModel]()
-    var comment = [CommentsModel]()
+    let loadingIndicator = LoadingIndicator()
+    
+    var blogTitle: String?
+    var blogBody: String?
+    var blogId: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ApiConnection.sharedInstance.fetchCommentsData(){ commentsApiData in
-            self.comment = commentsApiData
-
-           DispatchQueue.main.async {
-             self.commentTableView.reloadData()
-          }
-        }
+        setupView()
+        setupViewModel()
         
-        headerTextView.text = blog?.title
-        bodyTextView.text = blog?.body
-        
-//        downloadJSON {
-//            self.commentTableView.reloadData()
-//            print("Data successfully fetched from comments API")
-//        }
-    
-//    commentTableView.delegate = self
-//    commentTableView.dataSource = self
+        loadingIndicator.showLoadingIndicator(view: self.view)
+        fetchComments()
     }
-        
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationScreen = segue.destination as? CommentDetailViewController {
-            destinationScreen.comment = comment[(commentTableView.indexPathForSelectedRow?.row)!]
-        }
-    }
-    
-//    func downloadJSON(completed: @escaping () -> ()) {
-//        let url = URL(string: "https://jsonplaceholder.typicode.com/posts/\(blog?.id ?? 0)/comments")
-//        
-//        URLSession.shared.dataTask(with: url!) { data, response, error in
-//            
-//            if error == nil {
-//                do {
-//                    self.comment = try JSONDecoder().decode([CommentsModel].self, from: data!)
-//                    DispatchQueue.main.async {
-//                        completed()
-//                    }
-//                }
-//                catch {
-//                    print("error fetching data from comments api")
-//                }
-//            }
-//        }.resume()
-//    }
 }
 
-//Table View
+//MARK: Setup
+extension BlogViewController {
+  
+    private func setupView() {
+        headerTextView.text = blogTitle
+        bodyTextView.text = blogBody
+        
+        commentTableView.delegate = self
+        commentTableView.dataSource = self
+        commentTableView.register(UITableViewCell.self, forCellReuseIdentifier: "CommentCell")
+    }
+    
+    private func setupViewModel() {
+        viewModel?.onCommentsUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.loadingIndicator.hideLoadingIndicator()
+                
+                self?.commentTableView.reloadData()
+            }
+        }
+    }
+    
+    func fetchComments() {
+        if let blogTitle = blogTitle, let blogBody = blogBody, let blogId = blogId {
+            viewModel = BlogViewModel(blogTitle: blogTitle, blogBody: blogBody, blogId: blogId)
+            
+            viewModel?.fetchComments {
+                DispatchQueue.main.async {
+                    self.loadingIndicator.hideLoadingIndicator()
+                    self.commentTableView.reloadData()
+                }
+            }
+        }
+    }
+}
+
+//MARK: Table View
 extension BlogViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comment.count
+        return viewModel?.numberOfComments() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        let commentTable = comment[indexPath.row]
-        cell.textLabel?.text = commentTable.name.capitalized
-        cell.detailTextLabel?.text = commentTable.body.capitalized
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath)
+        if let comment = viewModel?.comment(at: indexPath.row) {
+            cell.textLabel?.text = comment.name.capitalized
+        }
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "CommentDetailView", sender: self)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {        
+        if let comment = viewModel?.comment(at: indexPath.row) {
+            let commentVC = CommentDetailViewController(nibName: "CommentsView", bundle: nil)
+            commentVC.title = "Comments"
+            commentVC.comment = comment
+            navigationController?.pushViewController(commentVC, animated: true)
+        }
     }
 }

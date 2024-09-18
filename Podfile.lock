@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (5.9.1)
+  - Cuckoo (2.0.0):
+    - Cuckoo/Swift (= 2.0.0)
+  - Cuckoo/Swift (2.0.0)
+  - NVActivityIndicatorView (5.2.0):
+    - NVActivityIndicatorView/Base (= 5.2.0)
+  - NVActivityIndicatorView/Base (5.2.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - Cuckoo (= 2.0.0)
+  - NVActivityIndicatorView
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Cuckoo
+    - NVActivityIndicatorView
+
+SPEC CHECKSUMS:
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  Cuckoo: edf1af0b9ddf0a101d639a26e62d82a8479b317b
+  NVActivityIndicatorView: fe52a6a68664c2df8991d7d9e3d86d8d19453c53
+
+PODFILE CHECKSUM: 7278365ae59d39b624a76f14bca1cda02e4fe99c
+
+COCOAPODS: 1.14.3

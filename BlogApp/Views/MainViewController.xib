@@ -11,7 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="BlogApp" customModuleProvider="target">
             <connections>
                 <outlet property="tableView" destination="Me6-eq-xA2" id="2zM-wa-5cD"/>
-                <outlet property="view" destination="iN0-l3-epB" id="vR0-my-L6A"/>
+                <outlet property="view" destination="iN0-l3-epB" id="w7a-qO-I0S"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -25,12 +25,11 @@
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Me6-eq-xA2" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="9SM-gw-snh"/>
                 <constraint firstItem="Me6-eq-xA2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Gbe-Ln-BjF"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Me6-eq-xA2" secondAttribute="bottom" id="nrM-6m-s2l"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Me6-eq-xA2" secondAttribute="trailing" constant="16" id="owT-G8-xfY"/>
+                <constraint firstItem="Me6-eq-xA2" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="qRs-hc-d6I"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>

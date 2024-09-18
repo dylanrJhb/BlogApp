@@ -19,12 +19,10 @@ class CommentDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        commentName.text = comment?.name.capitalized
-        commentEmail.text = comment?.email.capitalized
-        commentBodyText.text = comment?.body
-        
-        commentName.sizeToFit()
-        commentEmail.sizeToFit()
-        commentBodyText.sizeToFit()
+        if let comment = comment{
+            commentName.text = comment.name.capitalized
+            commentEmail.text = comment.email.capitalized
+            commentBodyText.text = comment.body
+        }
     }
 }
